@@ -14,6 +14,8 @@
 #define NAME_SIZE 20
 #define ARR_CNT 5
 
+
+// haha
 void * send_msg(void * arg);
 void * recv_msg(void * arg);
 void error_handling(char * msg);
