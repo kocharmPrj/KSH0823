@@ -19,7 +19,7 @@
 #define AP_PASS "iot00000"
 #define SERVER_NAME "10.10.141.76"
 #define SERVER_PORT 5000
-#define LOGID "KJH_ARD"
+#define LOGID "OJH_RAS"
 #define PASSWD "PASSWD"
 
 #define CDS_PIN A0
