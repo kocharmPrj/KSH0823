@@ -5,8 +5,8 @@
 #include <arpa/inet.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <pthread.h>
 #include <signal.h>
+#include <pthread.h>
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
 
@@ -14,8 +14,6 @@
 #define NAME_SIZE 20
 #define ARR_CNT 5
 
-
-// haha
 void * send_msg(void * arg);
 void * recv_msg(void * arg);
 void error_handling(char * msg);
@@ -32,11 +30,11 @@ int main(int argc, char *argv[])
 {
 	DEV_FD dev_fd;
 	struct sockaddr_in serv_addr;
-	pthread_t snd_thread, rcv_thread;
-	void * thread_return;
+	pthread_t snd_thread;   //, rcv_thread;
+    void * thread_return;
 	int ret;
 	struct sockaddr_rc addr = { 0 };
-  	char dest[18] = "98:D3:11:F8:4A:AA";	//iot00
+  	char dest[18] = "98:DA:60:08:0F:63";	//bt17
 	char msg[BUF_SIZE];
 
 	if(argc != 4) {
@@ -46,6 +44,7 @@ int main(int argc, char *argv[])
 
 	sprintf(name, "%s",argv[3]);
 
+    // socket for bluetooth fd
 	dev_fd.sockfd = socket(PF_INET, SOCK_STREAM, 0);
 	if(dev_fd.sockfd == -1)
 		error_handling("socket() error");
@@ -78,8 +77,9 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	pthread_create(&rcv_thread, NULL, recv_msg, (void *)&dev_fd);
+	////pthread_create(&rcv_thread, NULL, recv_msg, (void *)&dev_fd);
 	pthread_create(&snd_thread, NULL, send_msg, (void *)&dev_fd);
+    //send_msg(&dev_fd);
 
 	pthread_join(snd_thread, &thread_return);
 	//	pthread_join(rcv_thread, &thread_return);
@@ -102,49 +102,31 @@ void * send_msg(void * arg)  //bluetooth --> server
 	FD_ZERO(&initset);
 	FD_SET(dev_fd->sockfd, &initset);
 	FD_SET(dev_fd->btfd, &initset);
-
-	//	fputs("Input a message! [ID]msg (Default ID:ALLMSG)\n",stdout);
-	while(1) {
 		//		memset(msg,0,sizeof(msg));
 		//		name_msg[0] = '\0';
-		tv.tv_sec = 1;
+	while(1) {
+		//        if(FD_ISSET(STDIN_FILENO, &newset))
+		//if(FD_ISSET(dev_fd->btfd, &newset))
+		tv.tv_sec = 6;
 		tv.tv_usec = 0;
 		newset = initset;
-		ret = select(dev_fd->btfd + 1, &newset, NULL, NULL, &tv);
-		//        if(FD_ISSET(STDIN_FILENO, &newset))
-		if(FD_ISSET(dev_fd->btfd, &newset))
-		{
-			ret=read(dev_fd->btfd, msg+total,BUF_SIZE-total);
-			if(ret > 0)
-			{
-				total += ret;
-			}
-			else if(ret == 0) {
+		ret = select(dev_fd->btfd +1, &newset, NULL, NULL, &tv);
+		if (FD_ISSET(dev_fd->btfd, &newset)){
+			ret=read(dev_fd->btfd, msg,BUF_SIZE);
+		    //str_len = read(dev_fd->sockfd, name_msg, NAME_SIZE + BUF_SIZE );
+
+			//sprintf(name_msg,"[%s]%s",dev_fd->sendid,msg);
+
+  			//fputs("ARD:",stdout);
+			//fputs(msg,stdout);
+			if(write(dev_fd->sockfd, msg, strlen(msg))<=0){
 				dev_fd->sockfd = -1;
 				return NULL;
 			}
-
-			if(msg[total-1] == '\n')
-			{
-				msg[total]=0;
-				total = 0;
-			}
-			else
-				continue;
-
-//			sprintf(name_msg,"[%s]%s",dev_fd->sendid,msg);
-  			fputs("ARD:",stdout);
-			fputs(msg,stdout);
-			if(write(dev_fd->sockfd, msg, strlen(msg))<=0)
-			{
-				dev_fd->sockfd = -1;
-				return NULL;
-			}
-		}
-		if(ret == 0) 
-		{
-			if(dev_fd->sockfd == -1) 
-				return NULL;
+		} 
+        if (ret == 0){
+            printf("ret die\n");
+			if(dev_fd->sockfd == -1) {fputs("sockfd = -1",stdout); return NULL;}
 		}
 	}
 }
