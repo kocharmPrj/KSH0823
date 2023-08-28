@@ -25,4 +25,4 @@ OR
 
  <a href="https://imgbb.com/"><img src="https://i.ibb.co/sF4BKrq/client1.png" alt="client1" border="0"></a>
 
-- confer the port Number in server & client and you can change port num in runClient.sh also
+- refer to port Number in server & client because you can change that and port num in runClient.sh also
