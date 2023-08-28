@@ -13,10 +13,12 @@ using 2 arduino and 1 rasberry pi 4, control servo motor following CDS sensor
 - upload .ino file in /arduino/servoWithWifi/servoWithWifi.ino to arduino #2
 
 ## Raspberry pi
-
 - upload files in /arduino
-- ![enter image description here](https://ibb.co/CMz9Fc0)
-- ![enter image description here](https://ibb.co/qmdgHy6)
-- ![enter image description here](https://ibb.co/2jrbvBd)
+- Run server
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/RB96WFH/server.png" alt="server" border="0"></a>
+-  Run Client for bluetooth connection
+ <a href="https://imgbb.com/"><img src="https://i.ibb.co/j3TwC6t/client2.png" alt="client2" border="0"></a>
+OR
+ <a href="https://imgbb.com/"><img src="https://i.ibb.co/sF4BKrq/client1.png" alt="client1" border="0"></a>
 
-- refer the port Number, you can change port num in runClient.sh
+- confer the port Number in server & client and you can change port num in runClient.sh also
