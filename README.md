@@ -2,7 +2,7 @@
 
 # KSH0823 prj
 
-using 2 arduino and 1 rasberry pi 4, control servo motor following CDS sensor
+using 2 arduino and 1 rasberry pi 4, control servo motor based on CDS sensor value
 
 ## Arduino #1 with CDS sensor 
 - upload .ino file in /arduino/cdsWithBluetooth/cdsWithBluetooth.ino to arduino #1
