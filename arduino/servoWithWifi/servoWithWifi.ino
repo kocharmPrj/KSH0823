@@ -17,7 +17,7 @@
 
 #define AP_SSID "iot0"
 #define AP_PASS "iot00000"
-#define SERVER_NAME "10.10.141.76"
+#define SERVER_NAME "10.10.141.77"
 #define SERVER_PORT 5000
 #define LOGID "ARD_MOT"
 #define PASSWD "PASSWD"
@@ -142,7 +142,7 @@ void loop() {
       
 #ifdef DEBUG
             Serial.print("Cds: ");
-            Serial.print(cds);
+            Serial.println(cds);
       
 #endif
       if (!client.connected()) {
