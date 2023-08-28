@@ -20,7 +20,9 @@ using 2 arduino and 1 rasberry pi 4, control servo motor following CDS sensor
 -  Run Client for bluetooth connection
   
  <a href="https://imgbb.com/"><img src="https://i.ibb.co/j3TwC6t/client2.png" alt="client2" border="0"></a>
+
 OR
+
  <a href="https://imgbb.com/"><img src="https://i.ibb.co/sF4BKrq/client1.png" alt="client1" border="0"></a>
 
 - confer the port Number in server & client and you can change port num in runClient.sh also
