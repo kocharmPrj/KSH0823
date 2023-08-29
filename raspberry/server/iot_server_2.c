@@ -1,5 +1,3 @@
-/* author : KSH */
-/* 서울기술 교육센터 IoT */
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
