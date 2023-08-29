@@ -11,9 +11,11 @@ using 2 arduino and 1 rasberry pi 4, control servo motor based on CDS sensor val
 
 ## Arduino #2 with Servo motor
 - upload .ino file in /arduino/servoWithWifi/servoWithWifi.ino to arduino #2
+- connect servo motor one line to Arduino d5
+- connect wifi module(esp8266) tx to arduino d6, rx to arduino d7 port
 
 ## Raspberry pi
-- upload files in /arduino
+- upload files in /raspberry
 - Run server
   
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/RB96WFH/server.png" alt="server" border="0"></a>
