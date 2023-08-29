@@ -1,3 +1,5 @@
+/* author : KSH */
+/* 서울기술 교육센터 IoT */
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -36,7 +38,7 @@ typedef struct {
 	char pw[ID_SIZE];
 }CLIENT_INFO;
 
-void * clnt_connection(void * arg);
+void * rcv_msg(void * arg);
 void send_msg(MSG_INFO * msg_info, CLIENT_INFO * first_client_info);
 void error_handling(char * msg);
 void log_file(char * msgstr);
@@ -83,7 +85,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 	//+
-	FILE *idFd = fopen("userList.txt","r");
+	FILE *idFd = fopen("idpasswd.txt","r");
 	if(idFd == NULL)
 	{
 		perror("fopen() ");
@@ -191,7 +193,7 @@ int main(int argc, char *argv[])
 						log_file(msg);
 						write(clnt_sock, msg,strlen(msg));
 
-						pthread_create(t_id+i, NULL, clnt_connection, (void *)(client_info + i));
+						pthread_create(t_id+i, NULL, rcv_msg, (void *)(client_info + i));
 						pthread_detach(t_id[i]);
 						break;
 					}
@@ -212,7 +214,7 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-void * clnt_connection(void *arg)
+void * rcv_msg(void *arg)
 {
 	CLIENT_INFO * client_info = (CLIENT_INFO *)arg;
 	int str_len = 0;

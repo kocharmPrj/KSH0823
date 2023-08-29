@@ -14,7 +14,7 @@
 #define NAME_SIZE 20
 #define ARR_CNT 5
 
-void * send_msg(void * arg);
+void * pass_msg(void * arg);
 void * recv_msg(void * arg);
 void error_handling(char * msg);
 
@@ -78,8 +78,8 @@ int main(int argc, char *argv[])
 	}
 
 	////pthread_create(&rcv_thread, NULL, recv_msg, (void *)&dev_fd);
-	pthread_create(&snd_thread, NULL, send_msg, (void *)&dev_fd);
-    //send_msg(&dev_fd);
+	pthread_create(&snd_thread, NULL, pass_msg, (void *)&dev_fd);
+    //pass_msg(&dev_fd);
 
 	pthread_join(snd_thread, &thread_return);
 	//	pthread_join(rcv_thread, &thread_return);
@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-void * send_msg(void * arg)  //bluetooth --> server
+void * pass_msg(void * arg)  //bluetooth --> server
 {
 	DEV_FD *dev_fd = (DEV_FD *)arg;
 	int str_len;
